@@ -1,0 +1,16 @@
+.DS_Store
+
+# Local build products
+/build/
+/.build/
+
+# Local verification data and diagnostic captures
+/Verification/RESULTS.md
+/diagnostics/
+/captures/
+/Verification/*.log
+/Verification/*.trace
+/Verification/*.pcap
+/Verification/*.pcapng
+/status.json
+/Verification/status.json
