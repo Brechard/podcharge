@@ -22,7 +22,7 @@ Review the [install script](scripts/install.sh) before running it. This manual i
 With Git and Xcode Command Line Tools or Xcode available, copy and run:
 
 ```sh
-(
+/bin/bash <<'PODCHARGE_INSTALL'
   set -eu
 
   podcharge_install_tmp=
@@ -39,7 +39,7 @@ With Git and Xcode Command Line Tools or Xcode available, copy and run:
   podcharge_install_tmp=$(mktemp -d "${TMPDIR:-/tmp}/podcharge-install.XXXXXX")
   git clone --depth 1 https://github.com/Brechard/podcharge.git "$podcharge_install_tmp/source"
   bash "$podcharge_install_tmp/source/scripts/install.sh"
-)
+PODCHARGE_INSTALL
 ```
 
 The installer targets `/Applications` by default. If that location is not writable, first run `mkdir -p "$HOME/Applications"`, then replace the last command with `bash "$podcharge_install_tmp/source/scripts/install.sh" --destination "$HOME/Applications"` to choose a user-owned install location explicitly. Add `--no-open` to install without launching the app; `--help` lists the options.
