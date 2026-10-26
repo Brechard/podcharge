@@ -1,10 +1,8 @@
 # PodCharge
 
+![PodCharge banner with a wireless-earbud charging case](docs/podcharge-banner.png)
+
 **A small AirPods Pro 2 charging monitor for the macOS menu bar.** See left, right, and case battery estimates at a glance, or keep a tiny floating panel on your desktop. PodCharge is deliberately simple: it helps you notice when one earbud may not be charging, without becoming a device manager.
-
-![Illustrative PodCharge panel showing simulated battery readings](docs/panel-preview.svg)
-
-*Illustration with simulated values, not a device capture or a promise of exact readings.*
 
 ## What it does
 
@@ -15,23 +13,26 @@
 
 The currently tested hardware is **AirPods Pro (2nd generation, USB-C)**. PodCharge needs macOS 13 or later and Bluetooth permission. It first selects one currently connected supported pair. It can then listen for that selected pair's broadcasts while the earbuds are out of the audio connection, such as when they are in an open case.
 
+![Illustrative PodCharge panel showing simulated battery readings](docs/panel-preview.svg)
+
+*Illustration with simulated values, not a device capture or a promise of exact readings.*
+
 ## Build and install from a checkout
 
 With Git and Xcode Command Line Tools or Xcode available, run this from a terminal:
 
 ```sh
-install_dir="$(mktemp -d)" &&
-git clone --depth 1 https://github.com/Brechard/podcharge.git "$install_dir/source" &&
-cd "$install_dir/source" &&
+cd /tmp &&
+git clone https://github.com/Brechard/podcharge.git &&
+cd podcharge &&
 ./scripts/build.sh &&
-test ! -e "/Applications/PodCharge.app" &&
-cp -R "build/PodCharge.app" "/Applications/PodCharge.app" &&
-cd / &&
-rm -rf "$install_dir" &&
-open "/Applications/PodCharge.app"
+cp -R build/PodCharge.app /Applications/ &&
+open /Applications/PodCharge.app &&
+cd /tmp &&
+rm -rf podcharge
 ```
 
-Before reinstalling, quit PodCharge and move `/Applications/PodCharge.app` to the Trash. If cloning, building, the existence check, or copying fails, the `&&` chain stops and leaves the temporary checkout in `$install_dir` for inspection. For a user-owned install, create `"$HOME/Applications"` and replace each `/Applications/PodCharge.app` path above with `"$HOME/Applications/PodCharge.app"`.
+Before reinstalling, quit PodCharge and move `/Applications/PodCharge.app` to the Trash. If cloning, building, copying, or opening fails, the `&&` chain stops and leaves the checkout in `/tmp/podcharge` for inspection.
 
 The app is ad hoc signed, not Developer ID signed or notarized; macOS may apply its normal Gatekeeper checks. macOS may ask for Bluetooth permission again after a rebuild because the app is ad hoc signed.
 

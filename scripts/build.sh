@@ -17,6 +17,7 @@ cat > "$contents/Info.plist" <<'PLIST'
   <key>CFBundleIdentifier</key><string>org.podcharge.local</string>
   <key>CFBundleName</key><string>PodCharge</string>
   <key>CFBundleDisplayName</key><string>PodCharge</string>
+  <key>CFBundleIconFile</key><string>AppIcon.icns</string>
   <key>CFBundlePackageType</key><string>APPL</string>
   <key>CFBundleShortVersionString</key><string>0.1.0</string>
   <key>CFBundleVersion</key><string>1</string>
@@ -35,6 +36,7 @@ cat > "$project_dir/build/PodCharge.entitlements" <<'PLIST'
 </dict></plist>
 PLIST
 
+cp "$project_dir/Resources/AppIcon.icns" "$contents/Resources/AppIcon.icns"
 swiftc -O -target "$(uname -m)-apple-macos13.0" Sources/*.swift -o "$contents/MacOS/PodCharge"
 codesign --force --sign - --options runtime --entitlements "$project_dir/build/PodCharge.entitlements" "$app_dir"
 codesign --verify --strict --verbose=2 "$app_dir"
