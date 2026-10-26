@@ -15,9 +15,44 @@
 
 The currently tested hardware is **AirPods Pro (2nd generation, USB-C)**. PodCharge needs macOS 13 or later and Bluetooth permission. It first selects one currently connected supported pair. It can then listen for that selected pair's broadcasts while the earbuds are out of the audio connection, such as when they are in an open case.
 
-## Build and install
+## Install
 
-Install Xcode Command Line Tools or Xcode, then clone the public repository and build:
+Review the [install script](scripts/install.sh) before running it. This manual install clones the public GitHub repository into a temporary folder, builds the app locally, verifies the staged bundle, installs it in `/Applications`, and opens the installed app. The temporary checkout is removed when the command exits, including when the build or install fails. GitHub access is used only for this manual clone; PodCharge has no automatic updater.
+
+With Git and Xcode Command Line Tools or Xcode available, copy and run:
+
+```sh
+(
+  set -eu
+
+  podcharge_install_tmp=
+  cleanup() {
+    if [ -n "$podcharge_install_tmp" ]; then
+      rm -rf "$podcharge_install_tmp"
+    fi
+  }
+  trap cleanup EXIT
+  trap 'exit 129' HUP
+  trap 'exit 130' INT
+  trap 'exit 143' TERM
+
+  podcharge_install_tmp=$(mktemp -d "${TMPDIR:-/tmp}/podcharge-install.XXXXXX")
+  git clone --depth 1 https://github.com/Brechard/podcharge.git "$podcharge_install_tmp/source"
+  bash "$podcharge_install_tmp/source/scripts/install.sh"
+)
+```
+
+The installer targets `/Applications` by default. If that location is not writable, first run `mkdir -p "$HOME/Applications"`, then replace the last command with `bash "$podcharge_install_tmp/source/scripts/install.sh" --destination "$HOME/Applications"` to choose a user-owned install location explicitly. Add `--no-open` to install without launching the app; `--help` lists the options.
+
+Before reinstalling, quit PodCharge if it is running from the destination you selected. The installer stops with a quit-and-retry message rather than replacing an app that is running from that exact path.
+
+The app is signed ad hoc, not with a Developer ID certificate, and is not notarized; macOS may apply its normal Gatekeeper checks. The installer does not bypass them. macOS may ask for Bluetooth permission again after a rebuild because the app is ad hoc signed.
+
+Connect one AirPods Pro 2 USB-C pair before first launch so macOS can identify it. If needed, launch the installed app with `open -a /Applications/PodCharge.app --args --target-name "AirPods Pro"` to specify its Bluetooth name; add `--show-widget` to open the floating panel. If you chose another destination, substitute that app's path. The selection is saved in sandboxed preferences. If several paired devices share the same name, PodCharge may suppress readings because it cannot safely distinguish their broadcasts. Click the menu bar AirPods icon to open the popover and choose **Keep on desktop** for the panel.
+
+### Build from a checkout
+
+For development, keep a checkout and build there. This creates `build/PodCharge.app` in the checkout; it does not install the app:
 
 ```sh
 git clone https://github.com/Brechard/podcharge.git
@@ -25,10 +60,6 @@ cd podcharge
 ./scripts/build.sh
 open build/PodCharge.app
 ```
-
-The script builds `build/PodCharge.app` locally and signs it **ad hoc**. You can copy the app bundle to `/Applications` or a folder you control. It is not Developer ID signed or notarized; macOS may apply its normal Gatekeeper checks. PodCharge does not remove quarantine attributes or bypass those checks.
-
-Connect one AirPods Pro 2 USB-C pair before first launch so macOS can identify it. If needed, launch with `open -a build/PodCharge.app --args --target-name "AirPods Pro"` to specify its Bluetooth name; `--show-widget` opens the floating panel. The selection is saved in sandboxed preferences. If several paired devices share the same name, PodCharge may suppress readings because it cannot safely distinguish their broadcasts. Click the menu bar AirPods icon to open the popover and choose **Keep on desktop** for the panel.
 
 To uninstall, quit PodCharge and remove its app bundle. It installs no login item. To remove its saved selection and local status too, remove its sandbox container under `~/Library/Containers/org.podcharge.local/`.
 

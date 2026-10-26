@@ -24,8 +24,8 @@ jobs:
       - name: Run tests
         run: ./scripts/test.sh
 
-      - name: Build app
-        run: ./scripts/build.sh
+      - name: Test isolated app installation
+        run: ./scripts/test-install.sh
 
       - name: Verify app security
         run: ./scripts/verify-security.sh --probe build/PodCharge.app
