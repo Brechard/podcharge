@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400" role="img" aria-labelledby="title desc">
+  <title id="title">Illustrative PodCharge floating panel</title>
+  <desc id="desc">Simulated left, right, and case battery estimates with a sample charging reminder. No device data is shown.</desc>
+  <defs>
+    <linearGradient id="backdrop" x2="1" y2="1">
+      <stop stop-color="#eaf5f5"/>
+      <stop offset="1" stop-color="#dce7f0"/>
+    </linearGradient>
+    <filter id="shadow" x="-25%" y="-25%" width="150%" height="160%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#173247" flood-opacity=".16"/>
+    </filter>
+  </defs>
+  <rect width="640" height="400" rx="24" fill="url(#backdrop)"/>
+  <circle cx="535" cy="62" r="112" fill="#ffffff" opacity=".23"/>
+  <circle cx="73" cy="369" r="128" fill="#8dbab9" opacity=".14"/>
+  <text x="32" y="39" font-family="-apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="12" font-weight="700" letter-spacing="2" fill="#547184">PODCHARGE · ILLUSTRATION</text>
+  <g filter="url(#shadow)">
+    <rect x="159" y="49" width="322" height="315" rx="19" fill="#ffffff"/>
+  </g>
+  <rect x="159" y="49" width="322" height="315" rx="19" fill="none" stroke="#c5d2da"/>
+  <text x="181" y="84" font-family="-apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="19" font-weight="700" fill="#213547">AirPods Pro 2</text>
+  <text x="447" y="83" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="1" fill="#728391">PODCHARGE</text>
+  <circle cx="187" cy="106" r="9" fill="#f5a623"/>
+  <text x="187" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#ffffff">!</text>
+  <text x="204" y="110" font-family="-apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="12" font-weight="600" fill="#a15a04">Check left AirPod: not charging</text>
+  <line x1="181" y1="124" x2="459" y2="124" stroke="#e8edf0"/>
+  <g font-family="-apple-system, BlinkMacSystemFont, Arial, sans-serif">
+    <text x="183" y="153" font-size="14" font-weight="600" fill="#263d4c">Left</text>
+    <text x="183" y="171" font-size="11" fill="#627685">Not charging</text>
+    <text x="457" y="158" text-anchor="end" font-size="24" font-weight="700" fill="#253a49">≈25%</text>
+    <text x="457" y="174" text-anchor="end" font-size="10" fill="#718594">Bluetooth estimate</text>
+    <line x1="181" y1="187" x2="459" y2="187" stroke="#e8edf0"/>
+    <text x="183" y="215" font-size="14" font-weight="600" fill="#263d4c">Right</text>
+    <text x="183" y="233" font-size="11" fill="#257a55">Charging</text>
+    <text x="457" y="220" text-anchor="end" font-size="24" font-weight="700" fill="#253a49">≈35%</text>
+    <text x="457" y="236" text-anchor="end" font-size="10" fill="#718594">Bluetooth estimate</text>
+    <line x1="181" y1="249" x2="459" y2="249" stroke="#e8edf0"/>
+    <text x="183" y="277" font-size="14" font-weight="600" fill="#263d4c">Case</text>
+    <text x="183" y="295" font-size="11" fill="#627685">Charging unknown</text>
+    <text x="457" y="282" text-anchor="end" font-size="24" font-weight="700" fill="#253a49">—</text>
+    <text x="457" y="298" text-anchor="end" font-size="10" fill="#718594">Unavailable</text>
+    <line x1="181" y1="311" x2="459" y2="311" stroke="#e8edf0"/>
+    <text x="181" y="337" font-size="11" fill="#738593">Simulated values · Local to this Mac</text>
+  </g>
+</svg>

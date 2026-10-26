@@ -1,0 +1,31 @@
+name: Verify
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: verify
+    runs-on: macos-15
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Run tests
+        run: ./scripts/test.sh
+
+      - name: Build app
+        run: ./scripts/build.sh
+
+      - name: Verify app security
+        run: ./scripts/verify-security.sh --probe build/PodCharge.app
